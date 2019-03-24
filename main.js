@@ -7,8 +7,9 @@ const houses = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'];
 const btnEvent = () => {
     document.getElementById('sortBtn').addEventListener('click', createStudentCard);
     document.getElementById('sortBtn').addEventListener('click', buildStudent);
-    document.addEventListener('click', clearValue);
+    document.addEventListener('click', expelStudent);
 
+    document.addEventListener('click', clearValue);
 
 };
 
@@ -48,11 +49,12 @@ const buildStudent = () => {
         studentCard += `<div class="card">`;
         studentCard += `<h5 class="card-title">${student.name}</h5>`;
         studentCard += `<p>${student.house}</p>`;
-        studentCard += `<button id="expel" type="button">Expel</button>`;
+        studentCard += `<button id="expelBtn" type="button">Expel</button>`;
         studentCard += `</div>`;
         studentCard += `</div>`;
     });
     printToDom('studentCard', studentCard);
+  
 
 };
 
@@ -68,11 +70,17 @@ $("form").bind("keydown", (e) => {
     if (e.keyCode === 13) return false;
 });
 
+// expel student
+const expelStudent = (e) => {
+    const targetBtn = e.target;
+    if (e.target.id === 'expelBtn') {
+        console.log('Expel Button is clicked');
+    }
+};
 
 
 // calling functions on page load.
 const init = () => {
-
     buildStudent();
     btnEvent();
 };
