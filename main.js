@@ -1,4 +1,5 @@
 const students = [];
+const expel = [];
 
 
 const houses = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'];
@@ -7,9 +8,10 @@ const houses = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'];
 const btnEvent = () => {
     document.getElementById('sortBtn').addEventListener('click', createStudentCard);
     document.getElementById('sortBtn').addEventListener('click', buildStudent);
-    document.addEventListener('click', expelStudent);
+    document.addEventListener('click', targetBtn);
+    //document.addEventListener('click', removeStd);
 
-    document.addEventListener('click', clearValue);
+
 
 };
 
@@ -36,6 +38,9 @@ const createStudentCard = () => {
     );
 };
 
+const list = () => {
+    return 1;
+}
 
 // this function will loop through the Students Array
 // and print the Card to the DOM.
@@ -43,7 +48,6 @@ const createStudentCard = () => {
 const buildStudent = () => {
 
     let studentCard = '';
-
     students.forEach((student) => {
         studentCard += `<div class="col-sm-4">`;
         studentCard += `<div class="card">`;
@@ -54,29 +58,25 @@ const buildStudent = () => {
         studentCard += `</div>`;
     });
     printToDom('studentCard', studentCard);
-  
+
 
 };
 
 
-// This will clear the input field after Sort button is clicked.
-const clearValue = () => {
-    document.getElementById('inputName').value = '';
-};
 
-// this prevents will prevent the page from refreshing
-// when enter key is clicked when input box is selected.
-$("form").bind("keydown", (e) => {
-    if (e.keyCode === 13) return false;
-});
+// target a expel button.
 
-// expel student
-const expelStudent = (e) => {
-    const targetBtn = e.target;
+
+const targetBtn = (e) => {
     if (e.target.id === 'expelBtn') {
-        console.log('Expel Button is clicked');
-    }
+        expel.push(students);
+         console.log(expel);
+    };
 };
+
+
+// expel button
+
 
 
 // calling functions on page load.
