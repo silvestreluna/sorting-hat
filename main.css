@@ -46,3 +46,27 @@ label {
     padding-right: 1em;
 }
 
+#startBtn {
+    color: white;
+}
+
+.hide {
+    display: hidden;
+}
+
+
+.col-sm-4 {
+    margin-top: 10px; 
+    padding: 8px;
+}
+
+.card{
+
+    text-align: center;
+    }
+    
+#expel {
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-bottom: 30px;
+    }
