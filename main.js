@@ -70,7 +70,8 @@ const addExpelEvent = () => {
 };
 
 
-
+// this function will grabs the value enter, 
+// adds it
 
 const addStudent = (e) => {
     e.preventDefault();
