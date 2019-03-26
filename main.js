@@ -1,16 +1,13 @@
 const students = [];
 
+let idCounter = 1;
+const inputName = document.getElementById('inputName');
+const sortButton = document.getElementById('sortBtn');
+
 
 const houses = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'];
 
-// event listeners are store here. 
-const btnEvent = () => {
-    document.getElementById('sortBtn').addEventListener('click', createStudentCard);
-    document.getElementById('sortBtn').addEventListener('click', buildStudent);
-    document.addEventListener('click', clearValue);
 
-
-};
 
 // Print to the DOM function. 
 
@@ -20,47 +17,40 @@ const printToDom = (divId, textToPrint) => {
 };
 
 
-// This function will create the cards when the "sort" button
-// is clicked and push to the students array. 
-const createStudentCard = () => {
-    const getName = document.getElementById('inputName').value;
-    const getRandomH = Math.floor(Math.random() * houses.length);
-    getHouseR = houses[getRandomH];
 
-    students.push(
-        {
-            name: getName,
-            house: getHouseR
+const removeStudent = (e) => {
+    const delBtnId = e.target.id;
+    students.forEach((student, index) =>{
+        if(student.id === delBtnId) {
+            students.splice(index, 1);
         }
-    );
+    });
+    buildStudent(students);
+    addExpelEvent();
+ 
 };
 
 
 // this function will loop through the Students Array
 // and print the Card to the DOM.
 
-const buildStudent = () => {
-
+const buildStudent = (arrayToPrint) => {
     let studentCard = '';
-
-    students.forEach((student) => {
+    arrayToPrint.forEach((student) => {
         studentCard += `<div class="col-sm-4">`;
         studentCard += `<div class="card">`;
         studentCard += `<h5 class="card-title">${student.name}</h5>`;
         studentCard += `<p>${student.house}</p>`;
-        studentCard += `<button id="expel" type="button">Expel</button>`;
+        studentCard += `<button id=${student.id} class="expelBtn" type="button">Expel</button>`;
         studentCard += `</div>`;
-        studentCard += `</div>`;
+        studentCard += `</div>`;  
+        //idCounter++;
     });
-    printToDom('studentCard', studentCard);
-
+    console.log(arrayToPrint);
+    printToDom('student-card', studentCard);
 };
 
 
-// This will clear the input field after Sort button is clicked.
-const clearValue = () => {
-    document.getElementById('inputName').value = '';
-};
 
 // this prevents will prevent the page from refreshing
 // when enter key is clicked when input box is selected.
@@ -70,11 +60,42 @@ $("form").bind("keydown", (e) => {
 
 
 
+// target a expel button.
+
+const addExpelEvent = () => {
+    const expelButtons = document.getElementsByClassName('expelBtn');
+    for (let i = 0; i < expelButtons.length; i++) {
+        expelButtons[i].addEventListener('click', removeStudent);
+    }
+};
+
+
+
+
+const addStudent = (e) => {
+    e.preventDefault();
+    const getRandomH = Math.floor(Math.random() * houses.length);
+    getHouseR = houses[getRandomH];
+    const inputText = inputName.value;
+    const newStudents = {
+        name: inputText, 
+        house: getHouseR,
+        id: `student${idCounter}`,
+    };
+    students.push(newStudents);
+   idCounter++;
+    buildStudent(students);
+    addExpelEvent();
+    inputName.value = '';
+}
+
+const addEventListener = () => {
+    sortButton.addEventListener('click', addStudent);
+}
+
 // calling functions on page load.
 const init = () => {
-
-    buildStudent();
-    btnEvent();
+    addEventListener();
 };
 
 init();
